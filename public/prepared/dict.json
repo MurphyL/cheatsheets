@@ -1,0 +1,14 @@
+{
+    "alias": {
+        "js": "javascript"
+    },
+    "channels": {
+        "javascript": {
+            "label": "JavaScript",
+            "summary": "JavaScript 编程语言允许你在 Web 页面上实现复杂的功能。"
+        },
+        "elasticsearch": {
+            "label": "ElasticSearch"
+        }
+    }
+}
