@@ -1,9 +1,12 @@
 <template>
-    <div v-if="ready">
-        <RouterView name="meta" class="meta" />
-        <RouterView class="main" />
-        <RouterView name="refs" class="refs" />
-    </div>
+    <header class="header">
+        <RouterView class="navi" name="header" />
+        <RouterView class="extra" name="actions" />
+    </header>
+    <main class="main" v-if="ready">
+        <RouterView class="stage" />
+        <RouterView class="extra" name="extra" />
+    </main>
 </template>
 
 <script>
@@ -20,16 +23,49 @@ export default defineComponent({
     },
     mounted() {
         this.commonStore.init().then(() => {
-            console.log('app ready');
             this.ready = true;
         });
     }
 });
 </script>
 
-<style scoped>
-:global(body, #app) {
+<style lang="less">
+body,
+#app {
+    --top-height: 50px;
+
     margin: 0;
     padding: 0;
+}
+
+#app {
+    height: 100vh;
+    overflow: hidden;
+}
+</style>
+
+<style scoped lang="less">
+.header {
+    display: grid;
+    grid-template-columns: auto 20%;
+    grid-column-gap: 10px;
+
+    padding: 0 10px;
+
+    height: var(--top-height);
+    line-height: var(--top-height);
+
+    .extra {
+        display: grid;
+        justify-content: right;
+    }
+}
+
+.main {
+    display: grid;
+    grid-template-columns: auto 300px;
+    grid-column-gap: 10px;
+
+    height: calc(100% - var(--top-height));
 }
 </style>
