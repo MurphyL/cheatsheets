@@ -14,17 +14,15 @@ import { defineComponent } from 'vue';
 import { useCommonStore } from '@/stores/common_store';
 
 export default defineComponent({
-    setup() {
-        const commonStore = useCommonStore();
-        return { commonStore };
-    },
     data() {
         return { ready: false };
     },
     mounted() {
-        this.commonStore.init().then(() => {
-            this.ready = true;
-        });
+        fetch('/prepared/dict.json')
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+            })
     }
 });
 </script>
