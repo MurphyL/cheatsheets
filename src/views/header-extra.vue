@@ -1,3 +1,5 @@
 <template>
-    <RouterLink to="/config/global">设置</RouterLink>
+    <div>
+        <RouterLink to="/config">设置</RouterLink>
+    </div>
 </template>

@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, RouterView } from 'vue-router';
 
 import headerExtra from '@/views/header-extra.vue';
 import globalConfig from '@/views/global-config.vue';
@@ -8,24 +8,42 @@ const router = createRouter({
     routes: [{
         path: '/',
         name: 'home',
-        redirect: '/matrix'
-    }, {
-        path: '/config/global',
-        name: 'global-config',
+        redirect: '/snippet',
         components: {
+            header: () => import('@/views/header-navi.vue'),
             actions: headerExtra,
-            header: () => import('@/views/snippets/snippet-header.vue'),
-            default: globalConfig,
-        }
+            default: RouterView,
+            extra: () => import('@/views/extra-info.vue'),
+        },
+        children: [{
+            path: 'config',
+            name: 'global-config',
+            components: {
+                default: globalConfig,
+            }
+        }]
     }, {
-        path: '/matrix',
-        name: 'cheatsheet_matrix',
+        path: '/c/:channel',
+        name: 'channel',
         components: {
+            header: () => import('@/views/header-navi.vue'),
             actions: headerExtra,
-            header: () => import('@/views/snippets/snippet-header.vue'),
-            default: () => import('@/views/snippets/snippet-matrix.vue'),
-            extra: () => import('@/views/snippets/snippet-extra-info.vue'),
-        }
+            default: RouterView,
+            extra: () => import('@/views/extra-info.vue'),
+        },
+        children: [{
+            path: 'snippet',
+            name: 'snippet',
+            components: {
+                default: () => import('@/views/matrix-stage.vue'),
+            }
+        }, {
+            path: 'note',
+            name: 'note',
+            components: {
+                default: () => import('@/views/matrix-stage.vue'),
+            }
+        }]
     }]
 })
 

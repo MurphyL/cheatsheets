@@ -1,17 +1,16 @@
 <template>
     <header class="header">
-        <RouterView class="navi" name="header" />
-        <RouterView class="extra" name="actions" />
+        <RouterView class="left" name="header" />
+        <RouterView class="right" name="actions" />
     </header>
     <main class="main" v-if="ready">
-        <RouterView class="stage" />
-        <RouterView class="extra" name="extra" />
+        <RouterView class="left" />
+        <RouterView class="right" name="extra" />
     </main>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import { useCommonStore } from '@/stores/common_store';
 
 export default defineComponent({
     data() {
@@ -21,6 +20,7 @@ export default defineComponent({
         fetch('/prepared/dict.json')
             .then(res => res.json())
             .then(res => {
+                this.ready = true;
                 console.log(res);
             })
     }
@@ -53,7 +53,7 @@ body,
     height: var(--top-height);
     line-height: var(--top-height);
 
-    .extra {
+    .right {
         display: grid;
         justify-content: right;
     }
